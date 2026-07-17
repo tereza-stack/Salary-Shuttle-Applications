@@ -53,13 +53,11 @@ Reply *1* from the main menu when you're ready to apply and I'll collect these o
 
 const AGENT_HANDOFF = `Got it — I've flagged this chat for a human agent to follow up with you. In the meantime you can reach the team directly on 082 621 9388 or 072 722 5486.`;
 
-const DOCS_COMPLETE_INTRO = `🎉 Thank you! 
+const DOCS_COMPLETE_INTRO = `Documents received ✅. Next step is to send us *2 references* (next of kin) — for each one, we'll need their *full name and surname*, *cell phone number*, and *relationship* to you.
 
-Please send us *2 references* (next of kin) — for each one, we'll need their *name*, *cell phone number*, and *relationship* to you.
+Let's start with reference 1. What's their *full name and surname*?`;
 
-Let's start with reference 1. What's their *full name*?`;
-
-const FINAL_DONE = `✅ All done — thank you! Your application and references have been submitted. Our team will be in touch soon.
+const FINAL_DONE = `🎉 Thank you for your loan application! We have received your documents and it's now being processed. Our loan officer will be in contact with you shortly.
 
 Type *menu* any time if you need anything else.`;
 
@@ -72,7 +70,7 @@ function sendMenu(twiml) {
 function startApply(session, twiml) {
   session.stage = "APPLY_NAME";
   twiml.message(
-    `Great, let's get your application started 📝\n\nWhat's your *full name*?`
+    `Great, let's get your application started 📝\n\nWhat are your *full names and surname* (as it appears on your ID / Passport)?`
   );
 }
 
@@ -186,7 +184,7 @@ app.post("/webhook", async (req, res) => {
 
       case "APPLY_REF1_NAME": {
         if (!body) {
-          twiml.message(`Please type reference 1's full name to continue.`);
+          twiml.message(`Please type reference 1's full name and surname to continue.`);
           break;
         }
         session.references[0].name = body;
@@ -213,13 +211,13 @@ app.post("/webhook", async (req, res) => {
         }
         session.references[0].relationship = body;
         session.stage = "APPLY_REF2_NAME";
-        twiml.message(`Great, now reference 2. What's their *full name*?`);
+        twiml.message(`Great, now reference 2. What's their *full name and surname*?`);
         break;
       }
 
       case "APPLY_REF2_NAME": {
         if (!body) {
-          twiml.message(`Please type reference 2's full name to continue.`);
+          twiml.message(`Please type reference 2's full name and surname to continue.`);
           break;
         }
         session.references[1].name = body;
@@ -245,6 +243,17 @@ app.post("/webhook", async (req, res) => {
           break;
         }
         session.references[1].relationship = body;
+        session.stage = "APPLY_ADDRESS";
+        twiml.message(`Thank you. Last step — what's your *physical address*?`);
+        break;
+      }
+
+      case "APPLY_ADDRESS": {
+        if (!body) {
+          twiml.message(`Please type your physical address to continue.`);
+          break;
+        }
+        session.applicant.address = body;
         session.stage = "DONE";
         twiml.message(FINAL_DONE);
         try {
