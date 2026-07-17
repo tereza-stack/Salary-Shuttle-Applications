@@ -1,4 +1,3 @@
-```
 require("dotenv").config();
 const express = require("express");
 const twilio = require("twilio");
@@ -213,4 +212,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
 console.log(`AstroFin WhatsApp bot listening on port ${PORT}`);
 });
-```
