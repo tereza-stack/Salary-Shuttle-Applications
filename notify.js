@@ -27,14 +27,25 @@ async function notifyNewApplication(phone, session) {
     (d) => `- ${d.label}: ${session.documents[d.key]}`
   ).join("\n");
 
+  const refLines = (session.references || [])
+    .map(
+      (r, i) =>
+        `- Reference ${i + 1}: ${r.name || "Not provided"} | ${r.phone || "Not provided"} | ${r.relationship || "Not provided"}`
+    )
+    .join("\n");
+
   const body = `New Salary Shuttle application via WhatsApp bot
 
 Applicant name: ${session.applicant.name || "Not provided"}
 ID number: ${session.applicant.idNumber || "Not provided"}
+Physical address: ${session.applicant.address || "Not provided"}
 WhatsApp number: ${phone}
 
 Documents received:
 ${docLines}
+
+Next of kin / references:
+${refLines}
 
 Next step: HR employment verification, then process per standard workflow.
 `;
