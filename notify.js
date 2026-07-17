@@ -1,4 +1,3 @@
-```
 const nodemailer = require("nodemailer");
 const { REQUIRED_DOCS } = require("./sessionStore");
 
@@ -54,4 +53,3 @@ text: body,
 }
 
 module.exports = { notifyNewApplication };
-```
