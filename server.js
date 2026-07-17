@@ -53,9 +53,9 @@ Reply *1* from the main menu when you're ready to apply and I'll collect these o
 
 const AGENT_HANDOFF = `Got it — I've flagged this chat for a human agent to follow up with you. In the meantime you can reach the team directly on 082 621 9388 or 072 722 5486.`;
 
-const DOCS_COMPLETE_INTRO = `🎉 Thank you! Your application has been received and is now in process. We'll contact you shortly.
+const DOCS_COMPLETE_INTRO = `🎉 Thank you! 
 
-In the meantime, please send us *2 references* (next of kin) — for each one, we'll need their *name*, *cell phone number*, and *relationship* to you.
+Please send us *2 references* (next of kin) — for each one, we'll need their *name*, *cell phone number*, and *relationship* to you.
 
 Let's start with reference 1. What's their *full name*?`;
 
