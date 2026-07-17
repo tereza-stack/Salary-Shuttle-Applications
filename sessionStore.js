@@ -1,4 +1,3 @@
-```
 /**
 * Simple in-memory session store, keyed by WhatsApp number.
 *
@@ -55,4 +54,3 @@ nextMissingDoc,
 allDocsReceived,
 REQUIRED_DOCS,
 };
-```
