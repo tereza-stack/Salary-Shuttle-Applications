@@ -16,14 +16,14 @@ const REQUIRED_DOCS = [
   { key: "payslip1", label: "Payslip - Month 1 (most recent)" },
   { key: "payslip2", label: "Payslip - Month 2" },
   { key: "payslip3", label: "Payslip - Month 3" },
-  { key: "bankStatement", label: "Latest 1 month's bank statement" },
+  { key: "bankStatement", label: "Latest bank statement" },
 ];
 
 function getSession(phone) {
   if (!sessions.has(phone)) {
     sessions.set(phone, {
       stage: "MAIN_MENU",
-      applicant: { name: null, idNumber: null },
+      applicant: { name: null, idNumber: null, address: null },
       documents: {}, // key -> mediaUrl once received
       docIndex: 0,
       references: [
