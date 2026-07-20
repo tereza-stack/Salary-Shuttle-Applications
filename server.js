@@ -256,11 +256,13 @@ app.post("/webhook", async (req, res) => {
         session.applicant.address = body;
         session.stage = "DONE";
         twiml.message(FINAL_DONE);
-        try {
-          await notifyNewApplication(from, session);
-        } catch (err) {
+        // Fire the email in the background so a slow/blocked SMTP
+        // connection can't delay or drop the WhatsApp reply to the
+        // applicant. Twilio only waits ~15s for a response; email
+        // sending can take much longer (or time out) on some hosts.
+        notifyNewApplication(from, session).catch((err) => {
           console.error("Failed to send notification email:", err.message);
-        }
+        });
         break;
       }
 
